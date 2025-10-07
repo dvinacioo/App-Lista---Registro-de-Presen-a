@@ -26,5 +26,6 @@ Este é um aplicativo Progressivo (PWA) desenvolvido para registro de presença.
 
 <br>
 <h2>Link para clonar o repositório</h2>
+
 ```bash
 git clone https://github.com/dvinacioo/App-Lista.git
