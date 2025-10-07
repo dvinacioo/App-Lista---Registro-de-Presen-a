@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista</title>
+    <!DOCTYPE html>
+    <html lang="pt">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Registro</title>
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: dodgerblue;
+      color: rgb(7, 7, 7);
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 700px;
+      width: 90%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: white;
+      text-shadow: 2px 2px 1px black;
+      margin-bottom: 20px;
+    }
+
+    #Data {
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    #listaChamada p {
+      background-color: rgba(255, 255, 255, 0.6);
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: dodgerblue;
+      color: white;
+      padding: 10px;
+      width: 120px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin: 10px 5px 0;
+      transition: transform 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 758px) {
+      body {
+        font-size: 18px;
+        padding: 10px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      button {
+        font-size: 16px;
+        width: 100%;
+        margin: 10px 0;
+      }
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Assinaturas</h1>
+        <h2 id="Data"></h2>
+        <div id="listaChamada"></div>
+        <button onclick="limparLista()">Limpar</button>
+        <button onclick="Voltarpag()">Voltar</button>
+        <button onclick="exportarExcel()">Exportar para Excel</button>
+    </div>
+
+
+    <script>
+       const dataSalva = localStorage.getItem("DataChamada");
+        document.getElementById("Data").innerHTML = dataSalva ? "🗓️ " + dataSalva : "Data não disponível";
+
+
+        function mostrarLista() {
+            let lista = JSON.parse(localStorage.getItem("ListaPresenca"))  || [];
+
+            let listaElement = document.getElementById("listaChamada");
+            
+            if (lista.length > 0) {
+                listaElement.innerHTML = lista.map(item => `<p>${item.nome} - 🕒 ${item.horario}</p>`).join('');
+            } else{
+                listaElement.innerHTML = "<p>Ninguém assinou a presença ainda.</p>";
+            }
+        }
+
+        function limparLista() {
+            localStorage.removeItem("ListaPresenca");
+            location.reload();
+        }
+
+        function Voltarpag() {
+            window.location.href = "index.html";
+        }
+
+        
+        // Função para exportar lista para Excel
+        function exportarExcel() {
+          let lista = JSON.parse(localStorage.getItem("ListaPresenca")) || [];
+      
+          if (lista.length === 0) {
+              alert("A lista de assinaturas está vazia!");
+              return;
+          }
+      
+          const dataChamada = localStorage.getItem("DataChamada") || "Data não disponível";
+      
+          // Criando o conteúdo da planilha
+          let xlsContent = `Lista de Assinaturas - ${dataChamada}\n\n`; // Cabeçalho da planilha
+          xlsContent += "Nome\tHorário\n"; // Cabeçalho de colunas
+      
+          lista.forEach(item => {
+              xlsContent += `${item.nome}\t${item.horario}\n`;
+          });
+      
+          // Criando o arquivo Blob
+          let blob = new Blob([xlsContent], { type: 'application/vnd.ms-excel' });
+      
+          // Criando link para download
+          let link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = `Lista_de_Assinaturas_${dataChamada.replace(/\s+/g, "_")}.xls`;
+          link.click();
+      }
+
+
+        mostrarLista();
+    </script>
+</body>
+</html>

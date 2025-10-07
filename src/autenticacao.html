@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticação</title>
+    <style>
+     body {
+        height: 100vh; /* Ocupa 100% da altura da tela */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center; /* Centraliza horizontalmente */
+        align-items: center;     /* Centraliza verticalmente */
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: dodgerblue;
+        color: rgb(7, 7, 7);
+        font-size: 20px;
+        text-align: center;
+        overflow: hidden; /* Impede rolagem desnecessária */
+}
+
+.container {
+        background: rgba(255, 255, 255, 0.5);
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 600px;
+        width: 90%;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+input {
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        margin: 8px 0;
+        width: 100%;
+        font-size: 16px;
+}
+
+button {
+        cursor: pointer;
+        background-color: dodgerblue;
+        color: white;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-top: 10px;
+        transition: transform 0.3s ease;
+}
+
+button:hover {
+       transform: scale(1.1); 
+}
+
+h1 {
+        color: white;
+        text-shadow: 2px 2px 1px black;
+        margin-bottom: 20px;
+}
+
+/* Responsividade */
+@media(max-width: 758px) {
+  body {
+        font-size: 18px;
+        padding: 10px;
+  }
+
+  .container {
+       padding: 20px;
+  }
+
+  input, button {
+      font-size: 16px;
+  }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Validação</h1>
+        <input id="nomeUser" type="text" placeholder="Usuário">
+        <input id="senhaUser" type="password" placeholder="Senha">
+        <p id="mensagem"></p>
+        <button onclick="validarEntrada()">Entrar</button>
+        <button onclick="voltarPagina()">Voltar</button>
+    </div>
+
+    <script>
+        const user = [
+            {"nome": "admin",
+            "senha": "adminLista25"}
+        ]
+
+            
+            let msg = document.getElementById("mensagem");
+
+        function validarEntrada() {
+            let nome = document.getElementById("nomeUser").value;
+            let senha = document.getElementById("senhaUser").value;
+            
+            for(let i = 0; i < user.length; i++){
+            if (nome === user[i].nome && senha === user[i].senha) {
+                msg.innerHTML = "Dados corretos.<br> Carregando página..."
+
+                setTimeout(() => {
+                    window.location.href = "paginapresenca.html"
+                }, 2000);
+            } else{
+                document.getElementById("nomeUser").value = "";
+                document.getElementById("senhaUser").value = "";
+                msg.innerHTML = "Dados incorretos. Tente Novamente";
+                setTimeout(() => msg.innerHTML = "", 2000);
+            }
+            }
+        }
+        function voltarPagina(){
+            window.location.href = "index.html"
+        }
+    </script>
+</body>
+</html>
