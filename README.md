@@ -25,5 +25,7 @@ Este é um aplicativo Progressivo (PWA) desenvolvido para registro de presença.
 3. Escolha **"Instalar app"** ou **"Adicionar à tela inicial"**.
 4. O app será salvo na sua tela como se fosse um aplicativo nativo!
 
+<br>
+<h2>Link para clonar o repositório</h2>
 ```bash
 git clone https://github.com/dvinacioo/App-Lista.git
