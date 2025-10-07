@@ -7,7 +7,6 @@ Este é um aplicativo Progressivo (PWA) desenvolvido para registro de presença.
 - **Registro de Presença**: Permite que o usuário digite seu nome e registre a hora da assinatura.
 - **Lista de Presença**: Visualize a lista de todos os participantes, incluindo nome e horário da assinatura.
 - **Exportação para Excel**: Exporte a lista de presença para um arquivo Excel (.xls).
-- **Modo Offline**: O aplicativo funciona offline através do Service Worker, permitindo que você registre e visualize a lista sem conexão à internet.
 
 ## Tecnologias Utilizadas
 
